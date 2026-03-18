@@ -86,7 +86,7 @@ source venv/bin/activate
 python app.py
 ```
 
-Backend runs on: http://localhost:5000
+
 
 ### Start Frontend
 ```bash
@@ -94,7 +94,6 @@ cd frontend
 npm start
 ```
 
-Frontend runs on: http://localhost:3000
 
 ## Project Structure
 
@@ -166,7 +165,7 @@ Frontend runs on: http://localhost:3000
 ## Usage Example
 
 ```python
-# Train a model
+
 import requests
 
 response = requests.post('http://localhost:5000/api/train', json={
