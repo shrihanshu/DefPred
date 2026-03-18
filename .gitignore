@@ -1,0 +1,63 @@
+# Add to .gitignore
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+backend/venv/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+
+# Backend specific
+backend/.env
+backend/.env.*
+!backend/.env.example
+backend/data/uploads/*
+backend/data/trained_models/*
+backend/data/results/*
+!backend/data/sample_datasets/
+
+# Frontend specific
+frontend/node_modules/
+frontend/build/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Model files (optional - comment out if you want to track models)
+*.pkl
+*.h5
+*.pt
+*.pth
