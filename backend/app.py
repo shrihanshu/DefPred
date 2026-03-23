@@ -10,19 +10,19 @@ import json
 import time
 
 from backend import config
-from database import db, User, Dataset, TrainedModel, ModelMetrics, Prediction, UserActivity
-from models.ml_models import MLModelFactory
-# from models.dl_models import DLModelFactory  # Temporarily disabled due to TensorFlow issues
-from models.ensemble import EnsembleModel
-from explainability.shap_explainer import SHAPExplainer
-from explainability.lime_explainer import LIMEExplainer
-from explainability.feature_importance import FeatureImportanceAnalyzer
-from optimization.hyperparameter_tuning import HyperparameterOptimizer
-from preprocessing.data_loader import DataLoader
-from preprocessing.preprocessor import DataPreprocessor
-from utils.metrics import ModelEvaluator
-from utils.visualization import Visualizer
-from utils.ai_summary import AISummaryGenerator
+from backend.database import db, User, Dataset, TrainedModel, ModelMetrics, Prediction, UserActivity
+from backend.models.ml_models import MLModelFactory
+# from backend.models.dl_models import DLModelFactory  # Temporarily disabled due to TensorFlow issues
+from backend.models.ensemble import EnsembleModel
+from backend.explainability.shap_explainer import SHAPExplainer
+from backend.explainability.lime_explainer import LIMEExplainer
+from backend.explainability.feature_importance import FeatureImportanceAnalyzer
+from backend.optimization.hyperparameter_tuning import HyperparameterOptimizer
+from backend.preprocessing.data_loader import DataLoader
+from backend.preprocessing.preprocessor import DataPreprocessor
+from backend.utils.metrics import ModelEvaluator
+from backend.utils.visualization import Visualizer
+from backend.utils.ai_summary import AISummaryGenerator
 
 
 logging.basicConfig(level=logging.INFO)
