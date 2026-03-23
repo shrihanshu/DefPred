@@ -9,7 +9,7 @@ from datetime import datetime
 import json
 import time
 
-import config
+from backend import config
 from database import db, User, Dataset, TrainedModel, ModelMetrics, Prediction, UserActivity
 from models.ml_models import MLModelFactory
 # from models.dl_models import DLModelFactory  # Temporarily disabled due to TensorFlow issues
