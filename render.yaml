@@ -1,0 +1,23 @@
+# Render Infrastructure as Code for backend service and managed Postgres
+services:
+  - type: web
+    name: defpred-backend
+    repo: shrihanshu/DefPred
+    branch: master
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn -w 4 -b 0.0.0.0:$PORT backend.app:app
+    plan: starter
+    envVars:
+      - key: DATABASE_URL
+        sync: true
+      - key: SECRET_KEY
+        sync: true
+      - key: FLASK_ENV
+        value: production
+
+databases:
+  - name: defpred-db
+    databaseName: defpred_db
+    user: defpred
+    # NOTE: Render will generate credentials; set DATABASE_URL on the service to the provided connection string.
