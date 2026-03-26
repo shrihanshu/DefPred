@@ -6,10 +6,17 @@ echo "=========================================="
 echo "Setting up Defect Prediction Platform"
 echo "=========================================="
 
+# Prefer Python 3.11 when available for better ML package compatibility
+if command -v python3.11 &> /dev/null; then
+    PYTHON_BIN="python3.11"
+else
+    PYTHON_BIN="python3"
+fi
+
 # Create Python virtual environment
 echo "\n1. Creating Python virtual environment..."
 cd backend
-python3 -m venv venv
+$PYTHON_BIN -m venv venv
 
 # Activate virtual environment
 echo "\n2. Activating virtual environment..."
@@ -24,9 +31,13 @@ pip install -r requirements.txt
 echo "\n4. Generating sample datasets..."
 python data/generate_sample_data.py
 
-# Train initial models
-echo "\n5. Training initial models (this may take a few minutes)..."
-python train_models.py
+# Train initial models only when explicitly requested
+if [ "$TRAIN_INITIAL_MODELS" = "1" ]; then
+    echo "\n5. Training initial models (this may take a few minutes)..."
+    python train_models.py
+else
+    echo "\n5. Skipping initial model training (set TRAIN_INITIAL_MODELS=1 to enable)"
+fi
 
 # Deactivate virtual environment
 deactivate
@@ -55,12 +66,13 @@ echo ""
 echo "Backend:"
 echo "  cd backend"
 echo "  source venv/bin/activate"
-echo "  python app.py"
+echo "  cd .."
+echo "  python -m backend.app"
 echo ""
 echo "Frontend:"
 echo "  cd frontend"
 echo "  npm start"
 echo ""
-echo "The backend will run on http://localhost:5000"
+echo "The backend will run on http://localhost:5001"
 echo "The frontend will run on http://localhost:3000"
 echo "=========================================="

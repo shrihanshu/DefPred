@@ -22,10 +22,17 @@ cleanup() {
 # Set up cleanup trap
 trap cleanup SIGINT SIGTERM
 
+# Use Python 3.11 if available (better compatibility with pinned ML dependencies)
+if command -v python3.11 >/dev/null 2>&1; then
+    PYTHON_BIN="python3.11"
+else
+    PYTHON_BIN="python3"
+fi
+
 # Check if backend virtual environment exists
 if [ ! -d "$SCRIPT_DIR/backend/venv" ]; then
     echo "❌ Backend virtual environment not found!"
-    echo "Please run: cd backend && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt"
+    echo "Please run: cd backend && $PYTHON_BIN -m venv venv && source venv/bin/activate && pip install -r requirements.txt"
     exit 1
 fi
 
@@ -37,11 +44,11 @@ if [ ! -d "$SCRIPT_DIR/frontend/node_modules" ]; then
 fi
 
 echo "📦 Checking backend..."
-cd "$SCRIPT_DIR/backend"
-source venv/bin/activate
+cd "$SCRIPT_DIR"
+source backend/venv/bin/activate
 
 # Check if backend can import required modules
-python3 -c "import flask, pandas, numpy, sklearn, tensorflow, torch, shap, lime, optuna" 2>/dev/null
+python -c "import flask, pandas, numpy, sklearn, tensorflow, torch, shap, lime, optuna" 2>/dev/null
 if [ $? -ne 0 ]; then
     echo "❌ Backend dependencies missing!"
     echo "Please run: cd backend && source venv/bin/activate && pip install -r requirements.txt"
@@ -52,8 +59,8 @@ echo "✅ Backend dependencies OK"
 echo ""
 
 echo "🔧 Starting Backend Server (Flask)..."
-echo "📍 Backend URL: http://localhost:5000"
-python app.py > backend.log 2>&1 &
+echo "📍 Backend URL: http://localhost:5001"
+python -m backend.app > backend/backend.log 2>&1 &
 BACKEND_PID=$!
 
 # Wait for backend to start
@@ -62,7 +69,7 @@ sleep 3
 # Check if backend is running
 if ! ps -p $BACKEND_PID > /dev/null; then
     echo "❌ Backend failed to start. Check backend.log for errors."
-    cat backend.log
+    cat backend/backend.log
     exit 1
 fi
 
@@ -84,8 +91,8 @@ echo "✨ Platform is running!"
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "  🌐 Frontend:  http://localhost:3000"
-echo "  🔌 Backend:   http://localhost:5000"
-echo "  📊 Health:    http://localhost:5000/api/health"
+echo "  🔌 Backend:   http://localhost:5001"
+echo "  📊 Health:    http://localhost:5001/api/health"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "📝 Logs:"

@@ -83,7 +83,8 @@ npm install
 ```bash
 cd backend
 source venv/bin/activate
-python app.py
+cd ..
+python -m backend.app
 ```
 
 
@@ -168,14 +169,14 @@ npm start
 
 import requests
 
-response = requests.post('http://localhost:5000/api/train', json={
+response = requests.post('http://localhost:5001/api/train', json={
     'model_type': 'xgboost',
     'dataset': 'uploaded_dataset.csv',
     'optimize': True
 })
 
 # Get predictions with explanations
-response = requests.post('http://localhost:5000/api/predict', json={
+response = requests.post('http://localhost:5001/api/predict', json={
     'model_id': 'xgboost_model',
     'features': [...],
     'explain': True,

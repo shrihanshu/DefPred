@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ClerkProvider } from '@clerk/clerk-react';
-import { dark } from '@clerk/themes';
 import './index.css';
 import App from './App';
 
@@ -15,7 +14,6 @@ if (!clerkPubKey) {
 const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 const clerkAppearance = {
-  baseTheme: isDarkMode ? dark : undefined,
   variables: {
     colorPrimary: '#ef4444', // Red color for buttons
     colorDanger: '#dc2626',
